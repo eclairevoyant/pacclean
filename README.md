@@ -13,3 +13,4 @@ Identify duplicate Arch Linux packages in a given directory. Similar to `paccach
 - [ ] option to handle packages not part of repo
 - [ ] sort final output by using orderedtable
 - [ ] option to output stats? which may necessitate a deletion option
+- [ ] add pkgbuild and nimble file
