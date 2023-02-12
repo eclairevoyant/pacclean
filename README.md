@@ -7,8 +7,9 @@ Identify duplicate Arch Linux packages in a given directory. Similar to `paccach
 - [ ] handle .sig files
 - [ ] option to specify how many package versions to ignore
 - [ ] option to specify target directory
-- [ ] print out ignored packages in verbose mode (to `stderr`)
+- [ ] print out ignored packages in verbose mode (to `stderr`?)
 - [ ] handle arbitrary, unspecified package extensions
 - [ ] rename repo to be more descriptive
 - [ ] option to handle packages not part of repo
 - [ ] sort final output by using orderedtable
+- [ ] option to output stats? which may necessitate a deletion option
