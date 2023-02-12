@@ -11,3 +11,4 @@ Identify duplicate Arch Linux packages in a given directory. Similar to `paccach
 - [ ] handle arbitrary, unspecified package extensions
 - [ ] rename repo to be more descriptive
 - [ ] option to handle packages not part of repo
+- [ ] sort final output by using orderedtable
