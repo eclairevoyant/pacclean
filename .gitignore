@@ -1,8 +1,8 @@
-*
-!.gitignore
-!README.md
-!pacclean.nimble
-!PKGBUILD
-!src/
-src/*
-!src/*.nim
+/*
+!/.gitignore
+!/README.md
+!/pacclean.nimble
+!/PKGBUILD
+!/pacclean/
+/pacclean/*
+!/pacclean/*.nim
