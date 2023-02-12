@@ -4,7 +4,7 @@ Identify duplicate Arch Linux packages in a given directory. Similar to `paccach
 
 
 ## TODO
-[ ] handle .sig files
-[ ] option to specify how many package versions to ignore
-[ ] option to specify target directory
-[ ] print out ignored packages in verbose mode (to stderr)
+- [ ] handle .sig files
+- [ ] option to specify how many package versions to ignore
+- [ ] option to specify target directory
+- [ ] print out ignored packages in verbose mode (to `stderr`)
