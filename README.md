@@ -1,4 +1,4 @@
-# `vercmp.nim`
+# `pacclean`
 
 Identify duplicate Arch Linux packages in a given directory. Similar to `paccache`, but intentionally ignores file timestamps and does not perform any deletion (this program's output can be piped to `rm`).
 
