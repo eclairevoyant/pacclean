@@ -1,4 +1,8 @@
 *
 !.gitignore
 !README.md
-!vercmp.nim
+!pacclean.nimble
+!PKGBUILD
+!src/
+src/*
+!src/*.nim
