@@ -1,6 +1,8 @@
+# Maintainer: éclairevoyant
+
 _pkgname=pacclean
 pkgname="$_pkgname-git"
-pkgver=0
+pkgver=r9.b464ea9
 pkgrel=1
 pkgdesc="Clean up old pacman packages, similar to paccache"
 arch=('x86_64')
