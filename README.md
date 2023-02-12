@@ -8,3 +8,4 @@ Identify duplicate Arch Linux packages in a given directory. Similar to `paccach
 - [ ] option to specify how many package versions to ignore
 - [ ] option to specify target directory
 - [ ] print out ignored packages in verbose mode (to `stderr`)
+- [ ] handle arbitrary, unspecified package extensions
