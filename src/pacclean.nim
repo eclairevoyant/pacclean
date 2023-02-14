@@ -2,7 +2,6 @@ import std/[algorithm,os,sequtils,strutils,sugar,tables]
 
 func alpm_pkg_vercmp(a: cstring; b: cstring): cint {.dynlib: "libalpm.so", importc.}
 func verCmp(a: string, b: string): int = alpm_pkg_vercmp(a, b)
-func verCmp(a: (string, string), b: (string, string)): int = verCmp(a[0], b[0])
 
 func pkginfo(s: string): (string, string, string) =
   # don't split more than 3 times, because package names can have '-'
@@ -37,7 +36,7 @@ var toDelete: seq[string]
 
 # TODO filter "" here
 for p in packageMap.keys:
-  sort(packageMap[p], verCmp, SortOrder.Descending)
+  sort(packageMap[p], (a, b) => verCmp(a[0], b[0]), SortOrder.Descending)
   packageMap[p].delete(0..0)
   toDelete = toDelete.concat(packageMap[p].map(x => x[1]))
 
