@@ -3,6 +3,6 @@
 !/README.md
 !/pacclean.nimble
 !/PKGBUILD
-!/pacclean/
-/pacclean/*
-!/pacclean/*.nim
+!/src/
+/src/*
+!/src/*.nim

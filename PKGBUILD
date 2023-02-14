@@ -2,7 +2,7 @@
 
 _pkgname=pacclean
 pkgname="$_pkgname-git"
-pkgver=r12.b308a97
+pkgver=r13.57f79d7
 pkgrel=1
 pkgdesc="Clean up old pacman packages, similar to paccache"
 arch=('x86_64')
@@ -25,5 +25,5 @@ build() {
 
 package() {
 	cd $_pkgname
-	install -Dm755 bin/$_pkgname -t "$pkgdir/usr/bin/"
+	install -Dm755 $_pkgname -t "$pkgdir/usr/bin/"
 }

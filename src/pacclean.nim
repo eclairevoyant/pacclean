@@ -35,6 +35,7 @@ packageMap.del("")
 
 var toDelete: seq[string]
 
+# TODO filter "" here
 for p in packageMap.keys:
   sort(packageMap[p], verCmp, SortOrder.Descending)
   packageMap[p].delete(0..0)
