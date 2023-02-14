@@ -2,14 +2,14 @@
 
 _pkgname=pacclean
 pkgname="$_pkgname-git"
-pkgver=r13.57f79d7
+pkgver=r16.93da4d5
 pkgrel=1
 pkgdesc="Clean up old pacman packages, similar to paccache"
 arch=('x86_64')
 url="https://github.com/eclairevoyant/pacclean"
 license=('CCPL:by-nc-sa')
 depends=('pacman' 'glibc')
-makedepends=('git' 'nim')
+makedepends=('git' 'nim' 'pandoc')
 source=("git+$url.git")
 b2sums=('SKIP')
 
@@ -26,4 +26,5 @@ build() {
 package() {
 	cd $_pkgname
 	install -Dm755 $_pkgname -t "$pkgdir/usr/bin/"
+	install -Dm644 $_pkgname.1 -f "$pkgdir/usr/share/man/man1/"
 }
