@@ -1,9 +1,10 @@
 import std/[algorithm,os,sequtils,strutils,sugar,tables]
-proc alpm_pkg_vercmp*(a: cstring; b: cstring): cint {.dynlib: "libalpm.so", importc.}
-proc verCmp(a: string, b: string): int = alpm_pkg_vercmp(a, b)
-proc verCmp(a: (string, string), b: (string, string)): int = verCmp(a[0], b[0])
 
-proc pkginfo(s: string): (string, string, string) =
+func alpm_pkg_vercmp(a: cstring; b: cstring): cint {.dynlib: "libalpm.so", importc.}
+func verCmp(a: string, b: string): int = alpm_pkg_vercmp(a, b)
+func verCmp(a: (string, string), b: (string, string)): int = verCmp(a[0], b[0])
+
+func pkginfo(s: string): (string, string, string) =
   var splits = s.rsplit('-', maxsplit=3)
   if (splits.len > 3):
     return (splits[0], splits[1], splits[2])
