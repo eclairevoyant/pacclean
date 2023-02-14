@@ -5,13 +5,22 @@ func verCmp(a: string, b: string): int = alpm_pkg_vercmp(a, b)
 func verCmp(a: (string, string), b: (string, string)): int = verCmp(a[0], b[0])
 
 func pkginfo(s: string): (string, string, string) =
+  # don't split more than 3 times, because package names can have '-'
   var splits = s.rsplit('-', maxsplit=3)
   if (splits.len > 3):
     return (splits[0], splits[1], splits[2])
   return ("", "", "")
 
+let 
+  fileList = collect(newSeq):
+    # TODO pass dir as option
+    # TODO catch OSError
+    for kind, path in walkDir(".", true, true):
+      if kind == pcFile: path
+  # TODO check basename, not path
+  packageList = fileList.filter(p => p.contains(".pkg.tar") and not p.endsWith(".sig"))
+
 var
-  packageList = toSeq(walkFiles("*.pkg.tar.zst"))
   packageMap = initTable[string, seq[(string, string)]]()
 
 for p in packageList:

@@ -8,11 +8,13 @@ This work is licensed under the Creative Commons Attribution-NonCommercial-Share
 
 
 ## TODO
-- [ ] handle .sig files
+- [ ] print out associated .sig files
+- [ ] print out orphaned .sig files
+- [ ] handle -debug packages?
 - [ ] option to specify how many package versions to ignore
 - [ ] option to specify target directory
 - [ ] print out ignored packages in verbose mode (to `stderr`?)
-- [ ] handle arbitrary, unspecified package extensions
+- [x] handle arbitrary, unspecified package extensions
 - [ ] rename repo to be more descriptive
 - [ ] option to handle packages not part of repo
 - [ ] sort final output by using orderedtable
