@@ -34,6 +34,7 @@ proc showHelp() =
 var
   optParser = initOptParser(shortNoVal = {'h'}, longNoVal = @["help", "file-size", "file-size-bytes"])
   argCount = 0
+  optCountToKeep = 1
   optDir = "."
   optFileSize: bool
   optFileSizeBytes: bool
@@ -54,10 +55,18 @@ for kind, key, val in optParser.getopt():
     of "file-size-bytes":
       optFileSize = false
       optFileSizeBytes = true
+    of "count", "c":
+      try:
+        let c = parseInt(val)
+        if c < 1:
+          quit("count must be positive", 2)
+        optCountToKeep = c
+      except ValueError:
+        quit("count must be a positive integer", 3)
   of cmdEnd: discard # impossible
 
 if not dirExists(optDir):
-  quit(fmt"Path {optDir} does not exist")
+  quit(fmt"Path {optDir} does not exist", -1)
 
 let
   fileList = collect(newSeq):
@@ -86,8 +95,8 @@ var toDelete: seq[string]
 for p in packageMap.keys:
   sort(packageMap[p], (a, b) => verCmp(a[0], b[0]), SortOrder.Descending)
   # exclude latest package from deletion
-  # TODO opt to change count of recent packages to keep
-  packageMap[p].delete(0..0)
+  # TODO check if count exceeds seq size
+  packageMap[p].delete(0..(optCountToKeep-1))
   toDelete = toDelete.concat(packageMap[p].map(x => x[1]))
 
 var totalSize: BiggestInt
