@@ -12,6 +12,7 @@ func pkginfo(s: string): (string, string, string) =
     return (splits[0], splits[1], splits[2])
   return ("", "", "")
 
+# TODO arbitrary precision math (bigints? stint?)
 func humanReadable(i: BiggestInt): (BiggestFloat, string) =
   let ifloat = toBiggestFloat(i)
   if unlikely(i >= (2 ^ 50)):
@@ -42,7 +43,7 @@ for kind, key, val in optParser.getopt():
   of cmdArgument:
     if (argCount >= 1):
       quit("too many arguments", 1)
-    optDir = val
+    optDir = key
     inc argCount
   of cmdLongOption, cmdShortOption:
     case key
@@ -55,10 +56,11 @@ for kind, key, val in optParser.getopt():
       optFileSizeBytes = true
   of cmdEnd: discard # impossible
 
+if not dirExists(optDir):
+  quit(fmt"Path {optDir} does not exist")
+
 let
   fileList = collect(newSeq):
-    # TODO pass dir as option
-    # TODO check if dir exists / catch OSError
     for kind, path in walkDir(optDir, true, true):
       if kind == pcFile: path
   # TODO check basename, not path
@@ -91,10 +93,10 @@ for p in packageMap.keys:
 var totalSize: BiggestInt
 for p in toDelete:
   echo p
-  totalSize += getFileSize(p)
-  if fileList.contains(p & ".sig"):
+  totalSize += getFileSize(fmt"{optDir}/{p}")
+  if fileList.contains(fmt"{p}.sig"):
     echo p & ".sig"
-    totalSize += getFileSize(p & ".sig")
+    totalSize += getFileSize(fmt"{optDir}/{p}.sig")
 
 # TODO don't calculate file size if not requested?
 if optFileSize:
