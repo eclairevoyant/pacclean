@@ -1,4 +1,4 @@
-import std/[algorithm,math,os,sequtils,strformat,strutils,sugar,tables]
+import std/[algorithm,math,os,parseopt,sequtils,strformat,strutils,sugar,tables]
 
 func alpm_pkg_vercmp(a: cstring; b: cstring): cint {.dynlib: "libalpm.so", importc.}
 func verCmp(a: string, b: string): int = alpm_pkg_vercmp(a, b)
@@ -26,11 +26,40 @@ func humanReadable(i: BiggestInt): (BiggestFloat, string) =
     return (i / (2 ^ 10), "K")
   return (toBiggestFloat(i), "")
 
-let 
+proc showHelp() =
+  stderr.writeLine("TBI") # TODO implement
+  quit()
+
+var
+  optParser = initOptParser(shortNoVal = {'h'}, longNoVal = @["help", "file-size", "file-size-bytes"])
+  argCount = 0
+  optDir = "."
+  optFileSize: bool
+  optFileSizeBytes: bool
+
+for kind, key, val in optParser.getopt():
+  case kind
+  of cmdArgument:
+    if (argCount >= 1):
+      quit("too many arguments", 1)
+    optDir = val
+    inc argCount
+  of cmdLongOption, cmdShortOption:
+    case key
+    of "help", "h": showHelp()
+    of "file-size":
+      optFileSize = true
+      optFileSizeBytes = false
+    of "file-size-bytes":
+      optFileSize = false
+      optFileSizeBytes = true
+  of cmdEnd: discard # impossible
+
+let
   fileList = collect(newSeq):
     # TODO pass dir as option
-    # TODO catch OSError
-    for kind, path in walkDir(".", true, true):
+    # TODO check if dir exists / catch OSError
+    for kind, path in walkDir(optDir, true, true):
       if kind == pcFile: path
   # TODO check basename, not path
   packageList = fileList.filter(p => p.contains(".pkg.tar") and not p.endsWith(".sig"))
@@ -67,7 +96,12 @@ for p in toDelete:
     echo p & ".sig"
     totalSize += getFileSize(p & ".sig")
 
-let (totalSizeHuman, totalSizePrefix) = humanReadable(totalSize)
+# TODO don't calculate file size if not requested?
+if optFileSize:
+  let (totalSizeHuman, totalSizePrefix) = humanReadable(totalSize)
+  stderr.writeLine(fmt"Total file size: {totalSizeHuman:0.1f} {totalSizePrefix}B")
+elif optFileSizeBytes:
+  stderr.writeLine(fmt"Total file size: {totalSize} B")
 
-# TODO opt to show/hide total filesize
-stderr.writeLine(fmt"Total file size: {totalSizeHuman:0.1f} {totalSizePrefix}B")
+
+# TODO repo mode for cleaning repos
