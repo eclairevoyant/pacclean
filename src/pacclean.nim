@@ -14,9 +14,9 @@ func pkginfo(s: string): (string, string, string) =
 
 func humanReadable(i: BiggestInt): (BiggestFloat, string) =
   let ifloat = toBiggestFloat(i)
-  if (i >= (2 ^ 50)):
+  if unlikely(i >= (2 ^ 50)):
     return (i / (2 ^ 50), "P")
-  if (i >= (2 ^ 40)):
+  if unlikely(i >= (2 ^ 40)):
     return (i / (2 ^ 40), "T")
   if (i >= (2 ^ 30)):
     return (i / (2 ^ 30), "G")
