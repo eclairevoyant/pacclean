@@ -2,7 +2,6 @@
 !/.gitignore
 !/README.md
 !/pacclean.nimble
-!/PKGBUILD
 !/src/
 /src/*
 !/src/*.nim
