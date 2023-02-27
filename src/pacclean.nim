@@ -72,11 +72,9 @@ let
   fileList = collect(newSeq):
     for kind, path in walkDir(optDir, true, true):
       if kind == pcFile: path
-  # TODO check basename, not path
   packageList = fileList.filter(p => p.contains(".pkg.tar") and not p.endsWith(".sig"))
 
-var
-  packageMap = initTable[string, seq[(string, string)]]()
+var packageMap = initTable[string, seq[(string, string)]]()
 
 for p in packageList:
   let
@@ -94,12 +92,12 @@ var toDelete: seq[string]
 # TODO filter "" here
 for p in packageMap.keys:
   sort(packageMap[p], (a, b) => verCmp(a[0], b[0]), SortOrder.Descending)
-  # exclude latest package from deletion
-  # TODO check if count exceeds seq size
-  packageMap[p].delete(0..(optCountToKeep-1))
+  # exclude latest package(s) from deletion
+  packageMap[p].delete(0..min(optCountToKeep-1, packageMap[p].len-1))
   toDelete = toDelete.concat(packageMap[p].map(x => x[1]))
 
 var totalSize: BiggestInt
+
 for p in toDelete:
   echo p
   totalSize += getFileSize(fmt"{optDir}/{p}")
