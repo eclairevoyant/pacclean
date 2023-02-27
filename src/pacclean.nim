@@ -37,8 +37,12 @@ var toDelete: seq[string]
 # TODO filter "" here
 for p in packageMap.keys:
   sort(packageMap[p], (a, b) => verCmp(a[0], b[0]), SortOrder.Descending)
+  # exclude latest package from deletion
+  # TODO opt to change count of recent packages to keep
   packageMap[p].delete(0..0)
   toDelete = toDelete.concat(packageMap[p].map(x => x[1]))
 
 for p in toDelete:
   echo p
+  if fileList.contains(p & ".sig"):
+    echo p & ".sig"

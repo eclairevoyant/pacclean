@@ -8,8 +8,8 @@ This work is licensed under the Creative Commons Attribution-NonCommercial-Share
 
 
 ## TODO
-- [ ] print out associated .sig files
-- [ ] print out orphaned .sig files
+- [x] print out associated .sig files
+- [ ] print out orphaned (package or version doesn't exist) .sig files
 - [ ] handle -debug packages?
 - [ ] option to specify how many package versions to ignore
 - [ ] option to specify target directory
