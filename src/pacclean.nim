@@ -7,7 +7,7 @@ func `/`(x, y: BiggestInt): BiggestFloat = toBiggestFloat(x) / toBiggestFloat(y)
 
 func pkginfo(s: string): (string, string, string) =
   # don't split more than 3 times, because package names can have '-'
-  var splits = s.rsplit('-', maxsplit=3)
+  let splits = s.rsplit('-', maxsplit=3)
   if (splits.len > 3):
     return (splits[0], splits[1], splits[2])
   return ("", "", "")
@@ -39,9 +39,10 @@ var
   packageMap = initTable[string, seq[(string, string)]]()
 
 for p in packageList:
-  var info = pkginfo(p)
-  var pkgname = info[0]
-  var ver = info[1] & "-" & info[2]
+  let
+    info = pkginfo(p)
+    pkgname = info[0]
+    ver = info[1] & "-" & info[2]
   if not (pkgname in packageMap):
     packageMap[pkgname] = @[]
   packageMap[pkgname].add((ver, p))
