@@ -11,13 +11,13 @@ This work is licensed under the Creative Commons Attribution-NonCommercial-Share
 - [x] print out associated .sig files
 - [ ] print out orphaned (package or version doesn't exist) .sig files
 - [ ] handle -debug packages?
-- [ ] option to specify how many package versions to ignore
+- [x] option to specify how many package versions to ignore
 - [x] option to specify target directory
 - [ ] print out ignored packages in verbose mode (to `stderr`?)
 - [x] handle arbitrary, unspecified package extensions
 - [ ] rename repo to be more descriptive
 - [ ] option to handle packages not part of repo
-- [ ] sort final output by using orderedtable
+- [ ] sort final output
 - [x] option to output stats
 - [x] add pkgbuild and nimble file
 - [ ] auto-generate

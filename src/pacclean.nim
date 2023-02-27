@@ -36,6 +36,8 @@ var
   argCount = 0
   optCountToKeep = 1
   optDir = "."
+  optRepoUnused: bool
+  optRepoFile: string
   optFileSize: bool
   optFileSizeBytes: bool
 
@@ -63,6 +65,9 @@ for kind, key, val in optParser.getopt():
         optCountToKeep = c
       except ValueError:
         quit("count must be a positive integer", 3)
+    of "repo-unused", "r":
+      optRepoUnused = true
+      optRepoFile = val
   of cmdEnd: discard # impossible
 
 if not dirExists(optDir):
@@ -113,5 +118,5 @@ if optFileSize:
 elif optFileSizeBytes:
   stderr.writeLine(fmt"Total file size: {totalSize} B")
 
-
-# TODO repo mode for cleaning repos
+if optRepoUnused:
+  discard # TODO

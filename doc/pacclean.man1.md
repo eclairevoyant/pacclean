@@ -19,7 +19,10 @@ pacclean - a utility to list old pacman packages in a given directory
 : Display total file size (in bytes) of old files
 
 `-c, --count COUNT_TO_KEEP`
-: Exclude COUNT_TO_KEEP recent versions of all packages in DIRECTORY
+: Exclude COUNT_TO_KEEP recent versions of each package in DIRECTORY. If option is not specified, 1 recent version will be excluded.
+
+`-r, --repo-unused REPO_FILE`
+: Include all versions of packages that are not part of REPO_FILE (relative to DIRECTORY). This ignores `-c` for such packages.
 
 # BUGS
 
