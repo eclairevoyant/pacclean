@@ -99,11 +99,12 @@ for p in packageMap.keys:
 var totalSize: BiggestInt
 
 for p in toDelete:
-  echo p
-  totalSize += getFileSize(fmt"{optDir}/{p}")
+  let pkgPath = fmt"{optDir}/{p}"
+  echo pkgPath
+  totalSize += getFileSize(pkgPath)
   if fileList.contains(fmt"{p}.sig"):
-    echo p & ".sig"
-    totalSize += getFileSize(fmt"{optDir}/{p}.sig")
+    echo fmt"{pkgPath}.sig"
+    totalSize += getFileSize(fmt"{pkgPath}.sig")
 
 # TODO don't calculate file size if not requested?
 if optFileSize:
