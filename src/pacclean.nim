@@ -82,7 +82,7 @@ let
   fileList = collect(newSeq):
     for kind, path in walkDir(optDir, true, true):
       if kind == pcFile: path
-  packageList = fileList.filter(p => p.contains(".pkg.tar") and not p.endsWith(".sig"))
+  packageList = fileList.filter(f => f.contains(".pkg.tar") and not f.endsWith(".sig"))
 
 var packageMap = initTable[string, seq[(string, string)]]()
 
@@ -111,13 +111,14 @@ let toDeleteSigs = collect(newSeq):
 toDelete = toDelete.concat(toDeleteSigs)
 
 if optSort:
-  toDelete.sort
+  sort(toDelete)
 
 var totalSize: BiggestInt
 
 for p in toDelete:
   let fPath = fmt"{optDir}/{p}"
   echo fPath
+  # only read filesize if options are used
   if optFileSize or optFileSizeBytes:
     totalSize += getFileSize(fPath)
 
@@ -126,6 +127,10 @@ if optFileSize:
   stderr.writeLine(fmt"Total file size: {totalSizeHuman:0.1f} {totalSizePrefix}B")
 elif optFileSizeBytes:
   stderr.writeLine(fmt"Total file size: {totalSize} B")
+
+if optVerbose:
+  for f in fileList.filter(f => f notin toDelete):
+    stderr.writeLine(fmt"Excluded {optDir}/{f}")
 
 if optRepoUnused:
   discard # TODO
