@@ -14,7 +14,6 @@ func pkginfo(s: string): (string, string, string) =
 
 # TODO arbitrary precision math (bigints? stint?)
 func humanReadable(i: BiggestInt): (BiggestFloat, string) =
-  let ifloat = toBiggestFloat(i)
   if unlikely(i >= (2 ^ 50)):
     return (i / (2 ^ 50), "P")
   if unlikely(i >= (2 ^ 40)):
@@ -32,14 +31,16 @@ proc showHelp() =
   quit()
 
 var
-  optParser = initOptParser(shortNoVal = {'h'}, longNoVal = @["help", "file-size", "file-size-bytes"])
+  optParser = initOptParser(shortNoVal = {'h', 'v'}, longNoVal = @["help", "file-size", "file-size-bytes", "sort", "verbose"])
   argCount = 0
   optCountToKeep = 1
   optDir = "."
-  optRepoUnused: bool
-  optRepoFile: string
   optFileSize: bool
   optFileSizeBytes: bool
+  optRepoUnused: bool
+  optRepoFile: string
+  optSort: bool
+  optVerbose: bool
 
 for kind, key, val in optParser.getopt():
   case kind
@@ -68,6 +69,10 @@ for kind, key, val in optParser.getopt():
     of "repo-unused", "r":
       optRepoUnused = true
       optRepoFile = val
+    of "sort":
+      optSort = true
+    of "verbose", "v":
+      optVerbose = true
   of cmdEnd: discard # impossible
 
 if not dirExists(optDir):
@@ -94,24 +99,28 @@ packageMap.del("")
 
 var toDelete: seq[string]
 
-# TODO filter "" here
 for p in packageMap.keys:
   sort(packageMap[p], (a, b) => verCmp(a[0], b[0]), SortOrder.Descending)
   # exclude latest package(s) from deletion
   packageMap[p].delete(0..min(optCountToKeep-1, packageMap[p].len-1))
   toDelete = toDelete.concat(packageMap[p].map(x => x[1]))
 
+let toDeleteSigs = collect(newSeq):
+  for p in toDelete:
+    if fileList.contains(fmt"{p}.sig"): fmt"{p}.sig"
+toDelete = toDelete.concat(toDeleteSigs)
+
+if optSort:
+  toDelete.sort
+
 var totalSize: BiggestInt
 
 for p in toDelete:
-  let pkgPath = fmt"{optDir}/{p}"
-  echo pkgPath
-  totalSize += getFileSize(pkgPath)
-  if fileList.contains(fmt"{p}.sig"):
-    echo fmt"{pkgPath}.sig"
-    totalSize += getFileSize(fmt"{pkgPath}.sig")
+  let fPath = fmt"{optDir}/{p}"
+  echo fPath
+  if optFileSize or optFileSizeBytes:
+    totalSize += getFileSize(fPath)
 
-# TODO don't calculate file size if not requested?
 if optFileSize:
   let (totalSizeHuman, totalSizePrefix) = humanReadable(totalSize)
   stderr.writeLine(fmt"Total file size: {totalSizeHuman:0.1f} {totalSizePrefix}B")

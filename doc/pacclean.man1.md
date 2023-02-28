@@ -24,6 +24,12 @@ pacclean - a utility to list old pacman packages in a given directory
 `-r, --repo-unused REPO_FILE`
 : Include all versions of packages that are not part of REPO_FILE (relative to DIRECTORY). This ignores `-c` for such packages.
 
+`--sort`
+: Sort output
+
+`-v, --verbose`
+: Print excluded files to stderr
+
 # BUGS
 
 https://github.com/eclairevoyant/pacclean/issues
