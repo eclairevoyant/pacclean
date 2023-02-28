@@ -13,11 +13,11 @@ This work is licensed under the Creative Commons Attribution-NonCommercial-Share
 - [ ] handle -debug packages?
 - [x] option to specify how many package versions to ignore
 - [x] option to specify target directory
-- [ ] print out ignored packages in verbose mode
+- [x] print out ignored packages in verbose mode
 - [x] handle arbitrary, unspecified package extensions
 - [ ] rename repo to be more descriptive
 - [ ] option to handle orphaned packages (not part of repo)
-- [ ] sort final output
+- [x] sort final output
 - [x] option to output stats
 - [x] add pkgbuild and nimble file
 - [ ] auto-generate
