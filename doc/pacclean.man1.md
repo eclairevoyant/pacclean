@@ -6,7 +6,7 @@ pacclean - a utility to list old pacman packages in a given directory
 
 # SYNOPSIS
 
-`pacclean [-h | --file-size | --file-size-bytes] [-c COUNT_TO_KEEP] [DIRECTORY]`
+`pacclean [ -h | ([--file-size | --file-size-bytes] [-c COUNT_TO_KEEP | -r REPO_FILE] [DIRECTORY]) ]`
 
 # OPTIONS
 `-h, --help`
