@@ -6,7 +6,7 @@ pacclean - a utility to list old pacman packages in a given directory
 
 # SYNOPSIS
 
-`pacclean [ -h | ([--file-size | --file-size-bytes] [-c COUNT_TO_KEEP | -r REPO_FILE] [DIRECTORY]) ]`
+`pacclean [--file-size | --file-size-bytes] [-c COUNT_TO_KEEP] [-r REPO_FILE] [DIRECTORY]`
 
 # OPTIONS
 `-h, --help`
@@ -22,7 +22,7 @@ pacclean - a utility to list old pacman packages in a given directory
 : Exclude COUNT_TO_KEEP recent versions of each package in DIRECTORY. If option is not specified, 1 recent version will be excluded.
 
 `-r, --repo-unused REPO_FILE`
-: Include all versions of packages that are not part of REPO_FILE (relative to DIRECTORY). This ignores `-c` for such packages.
+: Include all versions of packages that are not part of REPO_FILE (relative to DIRECTORY). This ignores `-c` for such packages (`-c` is still respected for packages that are in the repo).
 
 `--sort`
 : Sort output

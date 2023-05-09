@@ -2,6 +2,8 @@
 !/.gitignore
 !/README.md
 !/pacclean.nimble
+!/flake.nix
+!/flake.lock
 !/src/
 /src/*
 !/src/*.nim
