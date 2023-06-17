@@ -15,5 +15,5 @@
       meta.version = "0.0.1";
       meta.name    = "pacclean";
       meta.desc    = "Clean up old pacman packages";
-    }
+    };
 }
