@@ -2,6 +2,7 @@
 !/.gitignore
 !/README.md
 !/pacclean.nimble
+!/default.nix
 !/flake.nix
 !/flake.lock
 !/src/
