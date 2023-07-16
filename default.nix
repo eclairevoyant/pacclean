@@ -18,6 +18,7 @@ nimPackages.buildNimPackage (finalAttrs: rec {
   };
   nativeBuildInputs = [autoPatchelfHook pandoc];
   buildInputs = [pacman];
+  hardeningEnable = ["pie"];
   buildPhase = ''
     runHook preBuild
     nim_builder --phase:build
