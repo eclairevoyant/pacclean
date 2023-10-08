@@ -2,7 +2,7 @@
   description = "Clean up old pacman packages";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixpkgs-unstable";
   };
 
   outputs = {
