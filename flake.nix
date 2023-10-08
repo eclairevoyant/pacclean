@@ -9,8 +9,9 @@
     self,
     nixpkgs,
   } @ inputs: let
-    pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
   in {
-    packages.x86_64-linux.default = pkgs.callPackage ./. {};
+    packages.${system}.default = pkgs.callPackage ./. {};
   };
 }
