@@ -1,13 +1,12 @@
 {
   lib,
-  nimPackages,
-  fetchFromGitHub,
+  buildNimPackage,
   autoPatchelfHook,
   pacman,
   pandoc,
 }:
 
-nimPackages.buildNimPackage (finalAttrs: {
+buildNimPackage (finalAttrs: {
   pname = "pacclean";
   version = "0.0.1";
 
