@@ -17,9 +17,7 @@ buildNimPackage (finalAttrs: {
     pandoc
   ];
 
-  buildInputs = [
-    pacman
-  ];
+  buildInputs = [ pacman ];
 
   hardeningEnable = [ "pie" ];
 
