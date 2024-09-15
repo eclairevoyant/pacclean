@@ -34,7 +34,6 @@ buildNimPackage (finalAttrs: {
     homepage = "https://github.com/eclairevoyant/pacclean";
     license = lib.licenses.cc-by-nc-sa-40;
     mainProgram = "pacclean";
-    maintainers = with lib.maintainers; [ eclairevoyant ];
     platforms = lib.platforms.linux;
   };
 })
