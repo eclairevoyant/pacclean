@@ -19,8 +19,6 @@ buildNimPackage (finalAttrs: {
 
   buildInputs = [ pacman ];
 
-  hardeningEnable = [ "pie" ];
-
   postBuild = ''
     pandoc -s -o ${finalAttrs.pname}.1 doc/pacclean.man1.md
   '';
